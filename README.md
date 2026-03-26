@@ -108,6 +108,3 @@ If you need clarifications, contact:
 
 ## License
 This material is provided for coursework submission. You may copy or adapt it for educational purposes. No warranty is provided.
-
----
-Generated from the corresponding Jupyter notebook `2025AB05088_rnn_assignment.ipynb` on the local workspace.
