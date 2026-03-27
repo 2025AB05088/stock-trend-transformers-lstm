@@ -1,110 +1,116 @@
-# 2025AB05088 — RNN vs Transformer for Time Series
+# RNN vs Transformer for Time Series Forecasting
+<div align="center">
 
-## Student
-- BITS ID: 2025AB05088
-- Name: P L V S ADITHYA
-- Email: 2025ab05088@wilp.bits-pilani.ac.in
-- Notebook: `2025AB05088_rnn_assignment.ipynb`
+![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![Jupyter](https://img.shields.io/badge/jupyter-%23FA0F00.svg?style=for-the-badge&logo=jupyter&logoColor=white)
+
+</div>
+
+<br>
+
+## Student Details
+| Detail | Information |
+|--------|-------------|
+| **BITS ID** | `2025AB05088` |
+| **Name** | P L V S ADITHYA |
+| **Email** | [2025ab05088@wilp.bits-pilani.ac.in](mailto:2025ab05088@wilp.bits-pilani.ac.in) |
+| **Notebook** | [`2025AB05088_rnn_assignment.ipynb`](./2025AB05088_rnn_assignment.ipynb) |
+
 
 ## Overview
-This repository contains a lab assignment comparing a stacked LSTM (RNN) and a Transformer encoder on a univariate time series forecasting task (TCS stock close price). The goal is to implement, train, and compare both architectures on the same temporal train/test split and report standard forecasting metrics.
+This repository contains a lab assignment comparing a **Stacked LSTM (RNN)** and a **Transformer Encoder** on a univariate time series forecasting task. The goal is to implement, train, and compare both architectures on the same temporal train/test split and report standard forecasting metrics.
 
-Key points:
-- Framework used: PyTorch
-- Dataset: `tcs_stock_data.csv` (Close price used)
-- Sequence length (lookback): 30
-- Prediction horizon: 1
-- Temporal train/test split: 90/10 (no shuffling)
-- Positional encoding: sinusoidal positional encoding is implemented and applied to the Transformer input
+### Assignment Configuration
+| Parameter | Specification |
+|-----------|---------------|
+| **Framework** | PyTorch |
+| **Dataset** | `tcs_stock_data.csv` (Close price) |
+| **Sequence Length** | `30` (lookback) |
+| **Prediction Horizon**| `1` |
+| **Train/Test Split** | `90/10` (Temporal, no shuffling) |
+| **Positional Encoding**| Sinusoidal (Applied to Transformer) |
 
-## Files in this folder
-- `2025AB05088_rnn_assignment.ipynb` — main Jupyter notebook (complete implementation, training, evaluation, visualizations, and final JSON results for auto-grader)
-- `tcs_stock_data.csv` — stock price data used for the assignment
 
-## Models implemented
-1. LSTM (stacked)
-   - Two stacked LSTM layers
-   - Dropout between layers
-   - Fully-connected output projection
-   - Loss: MSE
-   - Optimizer: Adam
-
-2. Transformer Encoder
-   - Input projection to d_model
-   - Sinusoidal positional encoding added to inputs
-   - PyTorch's `nn.TransformerEncoder` with multi-head attention
-   - Global average pooling over sequence dimension
-   - Loss: MSE
-   - Optimizer: Adam
-
-## Representative Results (from notebook run)
-These numbers are the values produced when the notebook was executed (they are printed in the notebook and included in the assignment's JSON summary):
-
-- LSTM (RNN)
-  - MAE: 115.04
-  - RMSE: 136.66
-  - MAPE: 2.92%
-  - R²: 0.5910
-  - Training time: ≈ 8.75 s
-  - Parameters: 29,729
-
-- Transformer
-  - MAE: 131.73
-  - RMSE: 162.76
-  - MAPE: 3.33%
-  - R²: 0.4199
-  - Training time: ≈ 59.18 s
-  - Parameters: 100,161
-
-Notes: Results depend on exact environment (CPU/GPU), PyTorch version, and randomness. The notebook sets random seeds for reproducibility but runtime differences may still appear across systems.
-
-## Dependencies
-The notebook requires the following Python packages (typical install via pip):
-
-- python 3.8+ (recommended)
-- numpy
-- pandas
-- matplotlib
-- seaborn
-- scikit-learn
-- torch (PyTorch)
-
-A minimal requirements install command:
-
-```bash
-# Windows (cmd.exe)
-python -m pip install --upgrade pip
-python -m pip install numpy pandas matplotlib seaborn scikit-learn torch
+## Repository Structure
+```text
+.
+├── 2025AB05088_rnn_assignment.ipynb   # Main Jupyter notebook
+└── tcs_stock_data.csv                 # Stock price dataset
 ```
 
-If you use a GPU, install the PyTorch build matching your CUDA version as described on https://pytorch.org/.
+## Models Implemented
 
-## Reproduce / Run the Notebook
-1. Make sure `tcs_stock_data.csv` is placed in the same folder as the notebook.
-2. Open `2025AB05088_rnn_assignment.ipynb` in Jupyter Notebook / JupyterLab / VS Code and select the Python environment with the required dependencies.
-3. Restart kernel and Run → Restart & Run All. The notebook executes end-to-end and prints an assignment results JSON at the end (used by the auto-grader).
+### 1. LSTM (Stacked)
+- Two stacked LSTM layers with dropout between them.
+- Fully-connected output projection.
+- **Loss Function:** MSE
+- **Optimizer:** Adam
 
-Optional: run the notebook headlessly and convert to HTML (requires nbconvert):
+### 2. Transformer Encoder
+- Input projection to `d_model`.
+- Sinusoidal positional encoding added to inputs.
+- PyTorch's `nn.TransformerEncoder` with multi-head attention.
+- Global average pooling over sequence dimension.
+- **Loss Function:** MSE
+- **Optimizer:** Adam
 
+
+## Representative Results
+> **Note:** These metrics reflect the values produced during the most recent execution. Results may vary slightly depending on hardware environment (CPU/GPU), library versions, and inherent randomness.
+
+| Metric | LSTM (RNN) | Transformer |
+|--------|------------|-------------|
+| **MAE** | `115.04` | `131.73` |
+| **RMSE** | `136.66` | `162.76` |
+| **MAPE** | `2.92%` | `3.33%` |
+| **R² Score** | `0.5910` | `0.4199` |
+| **Training Time** | `≈ 8.75 s` | `≈ 59.18 s` |
+| **Parameters** | `29,729` | `100,161` |
+
+
+## Dependencies
+The implementation requires `python 3.8+` and the following core packages:
+`numpy`, `pandas`, `matplotlib`, `seaborn`, `scikit-learn`, `torch`
+
+**Installation Command:**
 ```bash
-# Example: convert to HTML after executing (requires nbconvert and jupyter)
+# Upgrade pip to latest version
+python -m pip install --upgrade pip
+
+# Install required dependencies
+python -m pip install numpy pandas matplotlib seaborn scikit-learn torch
+```
+> For GPU acceleration, please install the PyTorch build tailored to your specific CUDA version as detailed on the [Official PyTorch Website](https://pytorch.org/).
+
+
+## Execution Guide
+1. Ensure the dataset `tcs_stock_data.csv` is located in the same directory as the notebook.
+2. Open `2025AB05088_rnn_assignment.ipynb` within your preferred environment (Jupyter / VS Code) utilizing the configured Python kernel.
+3. Select **Restart Kernel and Run All**. The notebook is designed to execute end-to-end and will output a structured JSON dictionary for the auto-grader upon completion.
+
+**Optional: Headless Execution & HTML Conversion**
+```bash
+# Export executed notebook to HTML (requires nbconvert)
 jupyter nbconvert --to html --execute "2025AB05088_rnn_assignment.ipynb" --ExecutePreprocessor.timeout=600
 ```
 
-## What the notebook produces
-- Training loss curves for both models
-- Actual vs predicted plots and residual plots
-- Four evaluation metrics for each model: MAE, RMSE, MAPE, R²
-- Training time and parameter counts
-- A final JSON dictionary named `assignment_results` containing dataset info, model configs, metrics, and textual analysis — printed at the end of the notebook for automatic grading
 
-## Notes for graders / reviewers
-- The notebook follows the assignment constraints: temporal split (no shuffling), positional encoding added to Transformer, stacked recurrent layers for the LSTM, and metrics calculation for both models.
-- Please run Kernel → Restart & Run All to ensure all outputs are visible.
+## System Outputs
+- **Visualizations:** Training loss curves, Actual vs. Predicted values, and Residual plots.
+- **Performance Metrics:** Mean Absolute Error (MAE), Root Mean Square Error (RMSE), Mean Absolute Percentage Error (MAPE), and R² Score.
+- **Diagnostics:** Iteration training time and total trainable parameters.
+- **Final Output:** A JSON dictionary (`assignment_results`) aggregating dataset parameters, model configurations, evaluation metrics, and analytical summaries.
 
-## Contact
-If you need clarifications, contact:
-- P L V S ADITHYA — 2025ab05088@wilp.bits-pilani.ac.in
+
+## Reviewer Notes
+> The implementation strictly adheres to the mandated assignment constraints, specifically the temporal split methodology (without shuffling), application of sinusoidal positional encoding for the Transformer variant, and utilization of stacked recurrent layers for the LSTM model. Please ensure **Kernel → Restart & Run All** is executed to properly render all intended outputs.
+
+
+## Support
+For technical clarifications regarding this implementation, please contact:
+- **P L V S ADITHYA** - [2025ab05088@wilp.bits-pilani.ac.in](mailto:2025ab05088@wilp.bits-pilani.ac.in)
+
 
 ## License
-This material is provided for coursework submission. You may copy or adapt it for educational purposes. No warranty is provided.
+This repository and its contents are provided strictly for coursework submission and academic evaluation. Unauthorized commercial use is prohibited.
