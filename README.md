@@ -29,6 +29,7 @@ This repository contains an architectural evaluation and experimentation pipelin
 ```text
 .
 ├── 2025AB05088_rnn_assignment.ipynb   # Main Experimentation & Training Pipeline
+├── Dockerfile                         # Enterprise Azure ML Container Specification
 └── tcs_stock_data.csv                 # Raw historical telemetry data
 ```
 
@@ -77,6 +78,19 @@ python -m pip install --upgrade pip
 python -m pip install numpy pandas matplotlib seaborn scikit-learn torch
 ```
 > For execution on Azure NC/ND-Series compute nodes, verify that the PyTorch build aligns with the host's CUDA drivers strictly as detailed in the [PyTorch Documentation](https://pytorch.org/).
+
+
+## Containerization Strategy
+To emulate our forthcoming Azure ML managed compute environment, this repository includes a hardened `Dockerfile`. The container specification utilizes Microsoft's official Azure ML OpenMPI/CUDA base (`ubuntu22.04`), installs all dependencies securely without cache pollution, and shifts to a non-root `mlops_sys` profile before executing the pipeline via a headless `ENTRYPOINT`.
+
+**Container Build & Execution Run-Book:**
+```bash
+# Compile the MLOps evaluation image
+docker build -t aml-forecasting-pipeline:v1 .
+
+# Spin up a localized container instance (bind-mounting telemetry)
+docker run --rm -v "$(pwd):/workspace/mlops_experiment" aml-forecasting-pipeline:v1
+```
 
 
 ## Execution & Deployment Pipeline
